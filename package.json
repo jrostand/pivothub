@@ -1,6 +1,6 @@
 {
   "name": "pivothub",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node server"
@@ -9,5 +9,8 @@
     "coffee-script": "*",
     "express": "3.0.0beta5",
     "github": "*"
+  },
+  "engines": {
+    "node": "0.6.x"
   }
 }
