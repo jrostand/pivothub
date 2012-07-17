@@ -1,0 +1,13 @@
+{
+  "name": "pivothub",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server"
+  },
+  "dependencies": {
+    "coffee-script": "*",
+    "express": "3.0.0beta5",
+    "github": "*"
+  }
+}
