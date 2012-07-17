@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "coffee-script": "*",
-    "express": "3.0.0beta5",
+    "express": "3.0.x",
     "github": "*"
   },
   "engines": {
