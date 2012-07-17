@@ -15,6 +15,7 @@ exports.indexml = (req, res) ->
   github.issues.repoIssues
     user: "#{user}"
     repo: "#{repo}"
+    per_page: 100
   , (err, result) ->
     if err?
       console.log err
