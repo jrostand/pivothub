@@ -34,5 +34,6 @@ generateStory = (user, repo, issue) ->
   str +=   "<description>#{issue.body.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</description>"
   str +=   "<requested_by>#{issue.user.login}</requested_by>"
   str +=   "<created_at type=\"datetime\">#{issue.created_at}</created_at>"
+  str +=   "<story_type>bug</story_type>"
   str += "</external_story>"
   str
