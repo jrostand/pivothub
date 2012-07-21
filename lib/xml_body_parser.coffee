@@ -11,7 +11,7 @@ module.exports = ->
     return next() if req.method is 'GET' or req.method is 'HEAD'
 
     # Verify the MIME type
-    return next() unless utils.mime req is 'text/xml'
+    return next() unless req.is 'text/xml'
 
     # Marked the body as parsed
     req._body = true
