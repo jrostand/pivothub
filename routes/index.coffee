@@ -1,5 +1,7 @@
 doc = require('xmlbuilder').create()
-parser = require('xml2js').Parser()
+xml2js = require 'xml2js'
+
+parser = new xml2js.Parser()
 
 GithubApi = require 'github'
 github = new GithubApi version: "3.0.0"
