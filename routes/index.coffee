@@ -25,6 +25,7 @@ exports.issuesList = (req, res) ->
 
     res.contentType 'text/xml; charset=utf-8'
     xml = generateStories user, repo, result
+    xml += '' # Force the generateStories function to finish before rendering
     res.end xml
 
 exports.issueClose = (req, res) ->
