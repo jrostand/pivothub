@@ -39,7 +39,6 @@ generateStories = (user, repo, issues) ->
   xml = doc.begin 'external_stories',
     'type': 'array'
     'version': '1.0'
-  xml.com "GitHub Issues for #{user}/#{repo}"
   for issue in issues
     story = xml.ele 'external_story'
     story.ele 'external_id', "#{user}/#{repo}/issues/#{issue.number}"
