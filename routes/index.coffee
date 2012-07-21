@@ -1,9 +1,7 @@
-doc = require('xmlbuilder').create()
 xml2js = require 'xml2js'
+GithubApi = require 'github'
 
 parser = new xml2js.Parser()
-
-GithubApi = require 'github'
 github = new GithubApi version: "3.0.0"
 
 github.authenticate
@@ -25,7 +23,7 @@ exports.issuesList = (req, res) ->
 
     res.contentType 'text/xml; charset=utf-8'
     xml = generateStories user, repo, result
-    res.send xml.toString()
+    res.send xml
 
 exports.issueClose = (req, res) ->
   parser.parseString req.body, (err, data) ->
@@ -37,19 +35,19 @@ exports.issueClose = (req, res) ->
       res.end 'OK', 200 if closeIssue storyData[0], storyData[1], storyData[3]
 
 generateStories = (user, repo, issues) ->
-  xml = doc.begin 'external_stories',
-    'type': 'array'
-    'version': '1.0'
+  xml = '<external_stories type="array">'
   for issue in issues
-    story = xml.ele 'external_story'
-    story.ele 'external_id', "#{user}/#{repo}/issues/#{issue.number}"
-    story.ele 'name', issue.title
-    story.ele 'description', issue.body.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')
-    story.ele 'requested_by', issue.user.login
-    story.ele 'created_at',
-      'type': 'datetime'
-    , issue.created_at
-    story.ele 'story_type', 'feature'
+    xml += """
+           <external_story>
+             <external_id>#{user}/#{repo}/issues/#{issue.number}</external_id>
+             <name>#{issue.title}</name>
+             <description>#{issue.body.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')}</description>
+             <requested_by>#{issue.user.login}</requested_by>
+             <created_at type=\"datetime\">#{issue.created_at}</created_at>
+             <story_type>feature</story_type>
+           </external_story>
+           """
+  xml += '</external_stories>'
   return xml
 
 closeIssue = (user, repo, issueId) ->

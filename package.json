@@ -9,8 +9,7 @@
     "coffee-script": "*",
     "express": "3.0.x",
     "github": "*",
-    "xml2js": "*",
-    "xmlbuilder": "*"
+    "xml2js": "*"
   },
   "engines": {
     "node": "0.6.x"
