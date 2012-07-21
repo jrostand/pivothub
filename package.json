@@ -8,7 +8,7 @@
   "dependencies": {
     "coffee-script": "*",
     "express": "3.0.x",
-    "github": "*",
+    "github": "git://github.com/jrostand/node-github.git",
     "xml2js": "*"
   },
   "engines": {
