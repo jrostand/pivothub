@@ -39,14 +39,15 @@ exports.issueClose = (req, res) ->
 generateStories = (user, repo, issues) ->
   xml = doc.begin 'external_stories',
     'type': 'array'
-    'version': '1.0'
   for issue in issues
     story = xml.ele 'external_story'
     story.ele 'external_id', "#{user}/#{repo}/issues/#{issue.number}"
     story.ele 'name', issue.title
     story.ele 'description', issue.body.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')
     story.ele 'requested_by', issue.user.login
-    story.ele 'created_at', {'type': 'datetime'}, issue.created_at
+    story.ele 'created_at',
+      'type': 'datetime'
+    , issue.created_at
     story.ele 'story_type', 'feature'
   return xml.toString()
 
