@@ -5,6 +5,7 @@
 express = require 'express'
 routes = require './routes'
 http = require 'http'
+xmlBodyParser = require './lib/xml_body_parser'
 
 app = express()
 auth = express.basicAuth process.env.PIVOTHUB_BASIC_USER, process.env.PIVOTHUB_BASIC_PASS
@@ -14,6 +15,7 @@ app.configure ->
 
   app.use express.logger 'dev'
   app.use express.bodyParser()
+  app.use xmlBodyParser()
   app.use app.router
 
 app.configure 'development', ->
