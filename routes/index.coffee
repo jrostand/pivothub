@@ -33,9 +33,12 @@ exports.issueClose = (req, res) ->
   story = req.body.stories.story
   if story.current_state is 'finished'
     storyData = story.other_id.split '/'
-    res.end 'OK', 200 if closeIssue storyData[0], storyData[1], storyData[3]
+    if closeIssue storyData[0], storyData[1], storyData[3]
+      res.end 'OK'
+    else
+      res.end 'Failure', 400
   else
-    res.end 'OK', 200
+    res.end 'OK'
 
 generateStories = (user, repo, issues) ->
   xml = '<external_stories type="array">'
