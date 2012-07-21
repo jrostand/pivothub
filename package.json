@@ -8,7 +8,9 @@
   "dependencies": {
     "coffee-script": "*",
     "express": "3.0.x",
-    "github": "*"
+    "github": "*",
+    "xml2js": "*",
+    "xmlbuilder": "*"
   },
   "engines": {
     "node": "0.6.x"

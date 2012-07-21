@@ -3,7 +3,7 @@
 #
 
 express = require 'express'
-idx = require './indexml'
+routes = require './routes'
 http = require 'http'
 
 app = express()
@@ -19,7 +19,8 @@ app.configure ->
 app.configure 'development', ->
   app.use express.errorHandler()
 
-app.get '/:user/:repo', auth, idx.indexml
+app.get '/issues/:user/:repo', auth, routes.issuesList
+app.post '/issues', auth, routes.issueClose
 
 http.createServer(app).listen app.get('port'), ->
   console.log "Express server started on port #{app.get 'port'}"
