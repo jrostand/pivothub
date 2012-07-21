@@ -24,7 +24,8 @@ exports.issuesList = (req, res) ->
     console.log err if err?
 
     res.contentType 'text/xml; charset=utf-8'
-    res.end generateStories user, repo, result
+    xml = generateStories user, repo, result
+    res.end xml
 
 exports.issueClose = (req, res) ->
   parser.parseString req.body, (err, data) ->
