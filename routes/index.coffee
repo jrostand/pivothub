@@ -30,13 +30,10 @@ exports.issueClose = (req, res) ->
   res.end 'Unauthorized', 401 unless req.params.token is process.env.SECRET_TOKEN
   console.log req.body
 
-  #  parser.parseString req.body, (err, data) ->
-  #    console.log err if err?
-  #
-  #    story = data.activity.stories[0].story
-  #    if story.current_state is 'finished'
-  #      storyData = story.other_id.split '/'
-  #      res.end 'OK', 200 if closeIssue storyData[0], storyData[1], storyData[3]
+  story = req.body.activity.'@'.stories[0].story
+  if story.current_state is 'finished'
+    storyData = story.other_id.split '/'
+    res.end 'OK', 200 if closeIssue storyData[0], storyData[1], storyData[3]
 
 generateStories = (user, repo, issues) ->
   xml = '<external_stories type="array">'
