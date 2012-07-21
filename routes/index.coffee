@@ -27,16 +27,16 @@ exports.issuesList = (req, res) ->
     res.send xml
 
 exports.issueClose = (req, res) ->
-  res.end 'Unauthorized', 401 unless req.params.token is process.env.SECRET_TOKEN
+  res.send 'Unauthorized', 401 unless req.params.token is process.env.SECRET_TOKEN
   console.log req.body
 
   story = req.body.stories.story
   if story.current_state is 'finished'
     storyData = story.other_id.split '/'
     if closeIssue storyData[0], storyData[1], storyData[3]
-      res.end 'OK'
+      res.send 'OK'
     else
-      res.end 'Failure', 400
+      res.send 'Failure', 400
   else
     res.end 'OK'
 
@@ -64,4 +64,3 @@ closeIssue = (user, repo, issueId) ->
     state: 'closed'
   , (err, result) ->
     console.log err if err?
-    return true if err.length is 0
