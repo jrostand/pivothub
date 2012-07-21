@@ -25,7 +25,7 @@ exports.issuesList = (req, res) ->
 
     res.contentType 'text/xml; charset=utf-8'
     xml = generateStories user, repo, result
-    res.send xml
+    res.send xml.toString()
 
 exports.issueClose = (req, res) ->
   parser.parseString req.body, (err, data) ->
