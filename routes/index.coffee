@@ -30,7 +30,7 @@ exports.issueClose = (req, res) ->
   res.end 'Unauthorized', 401 unless req.params.token is process.env.SECRET_TOKEN
   console.log req.body
 
-  story = req.body.activity['@'].stories[0].story
+  story = req.body.stories.story
   if story.current_state is 'finished'
     storyData = story.other_id.split '/'
     res.end 'OK', 200 if closeIssue storyData[0], storyData[1], storyData[3]
