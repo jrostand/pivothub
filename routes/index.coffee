@@ -1,5 +1,6 @@
 xml2js = require 'xml2js'
 GithubApi = require 'github'
+util = require 'util'
 
 parser = new xml2js.Parser()
 github = new GithubApi version: "3.0.0"
