@@ -27,8 +27,9 @@ exports.issuesList = (req, res) ->
     res.send xml
 
 exports.issueClose = (req, res) ->
-  res.end 'Unauthorized', 401 unless req.query.token is process.env.SECRET_TOKEN
-  console.log util.inspect req.body, false, null
+  res.end 'Unauthorized', 401 unless req.params.token is process.env.SECRET_TOKEN
+  console.log req.body
+
   parser.parseString req.body, (err, data) ->
     console.log err if err?
 
