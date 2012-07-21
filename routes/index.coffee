@@ -25,8 +25,8 @@ exports.issuesList = (req, res) ->
 
     res.contentType 'text/xml; charset=utf-8'
     xml = generateStories user, repo, result
-    xml += '' # Force the generateStories function to finish before rendering
-    res.end xml
+    res.write xml
+    res.end
 
 exports.issueClose = (req, res) ->
   parser.parseString req.body, (err, data) ->
@@ -35,7 +35,7 @@ exports.issueClose = (req, res) ->
     story = data.activities[0].activity.stories[0].story
     if story.current_state is 'finished'
       storyData = story.other_id.split '/'
-      res.end 'OK' if closeIssue storyData[0], storyData[1], storyData[3]
+      res.end 'OK', 200 if closeIssue storyData[0], storyData[1], storyData[3]
 
 generateStories = (user, repo, issues) ->
   xml = doc.begin 'external_stories',
