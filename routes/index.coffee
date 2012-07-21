@@ -39,6 +39,7 @@ exports.issueClose = (req, res) ->
 generateStories = (user, repo, issues) ->
   xml = doc.begin 'external_stories',
     'type': 'array'
+    'version': '1.0'
   for issue in issues
     story = xml.ele 'external_story'
     story.ele 'external_id', "#{user}/#{repo}/issues/#{issue.number}"
@@ -49,7 +50,7 @@ generateStories = (user, repo, issues) ->
       'type': 'datetime'
     , issue.created_at
     story.ele 'story_type', 'feature'
-  return xml.toString()
+  return xml
 
 closeIssue = (user, repo, issueId) ->
   github.issues.edit
