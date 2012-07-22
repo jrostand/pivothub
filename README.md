@@ -15,7 +15,6 @@ A simple way to integrate GitHub Issues into Pivotal Tracker
 3. Set up your deployment environment. I use [Heroku](http://www.heroku.com) personally (because you get SSL for free), but I've also tested this with [NodeJitsu](http://nodejitsu.com). Note that I highly recommend using SSL for this app as otherwise your credentials will be transmitted in the clear.
 
   You'll need the following environment variables set:
-
   * `PIVOTHUB_BASIC_USER` - Your HTTP basic auth username for pulling issues into Pivotal Tracker
   * `PIVOTHUB_BASIC_PASS` - HTTP basic auth password
   * `GITHUB_TOKEN` - The OAuth token from GitHub
