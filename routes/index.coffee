@@ -13,7 +13,7 @@ exports.issuesList = (req, res) ->
   user = req.params.user
   repo = req.params.repo
 
-  console.log user + '/' + repo
+  console.log "Sending issues for #{user}/#{repo}..."
 
   github.issues.repoIssues
     user: user
@@ -28,7 +28,7 @@ exports.issuesList = (req, res) ->
 
 exports.issueClose = (req, res) ->
   res.send 'Unauthorized', 401 unless req.params.token is process.env.SECRET_TOKEN
-  console.log req.body
+  console.log 'Receiving activity POST...'
 
   story = req.body.stories.story
   if story.current_state is 'finished'
