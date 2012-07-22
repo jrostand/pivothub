@@ -12,7 +12,7 @@ A simple way to integrate GitHub Issues into Pivotal Tracker
 
 2. Get an OAuth key from GitHub. Instructions are available [here](https://help.github.com/articles/creating-an-oauth-token-for-command-line-use)
 
-3. Set up your deployment environment. I use [Heroku](http://www.heroku.com) personally (because you get SSL for free), but I've also tested this with [NodeJitsu](http://nodejitsu.com). Note that I highly recommend using SSL for this app as otherwise your credentials will be transmitted in the clear.
+3. Set up your deployment environment. I use [Heroku](http://www.heroku.com) personally (because you get SSL for free), but it should work equally well with [Nodejitsu](http://nodejitsu.com). Note that I highly recommend using SSL for this app as otherwise your credentials will be transmitted in the clear.
 
   You'll need the following environment variables set:
   * `PIVOTHUB_BASIC_USER` - Your HTTP basic auth username for pulling issues into Pivotal Tracker
@@ -35,7 +35,7 @@ This section will tell you how to set up Pivotal Tracker to pull in GitHub Issue
 
 1. Select `Project` and then `Configure Integrations`
 
-2. Scroll down to `External Tool Integrations` and select `Other` from the options in the `Create New Integration...` box
+2. Scroll down to **External Tool Integrations** and select `Other` from the options in the `Create New Integration...` box
 
 3. Fill in the form with this information:
     * **Name:** Whatever you'd like to call the Issues panel (e.g., GitHub Issues)
@@ -44,7 +44,7 @@ This section will tell you how to set up Pivotal Tracker to pull in GitHub Issue
     * **Base URL:** `https://github.com/`
     * **Import API URL:** `https://myghissues.herokuapp.com/issues/myaccount/repo`
 
-4. Click `Create`
+4. Click **Create**
 
 ### Closing Issues from Finished stories
 
@@ -52,9 +52,8 @@ If you would like PivotHub to close Issues that are associated with Finished sto
 
 1. In Pivotal, go to the `Configure Integrations` page for your project
 
-2. Fill in the `Activity Web Hook` as follows:
-
-  * **Web Hook URL:** `https://myghissues.herokuapp.com/issues/<your SECRET_TOKEN>`
+2. Fill in the **Activity Web Hook** as follows:
+  * **Web Hook URL:** `https://myghissues.herokuapp.com/issues/<SECRET_TOKEN>`
   * **API Version:** `v3`
 
-3. Click `Save Web Hook Settings`
+3. Click **Save Web Hook Settings**
