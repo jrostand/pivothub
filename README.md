@@ -14,12 +14,12 @@ A simple way to integrate GitHub Issues into Pivotal Tracker
 
 3. Set up your deployment environment. I use [Heroku](http://www.heroku.com) personally (because you get SSL for free), but I've also tested this with [NodeJitsu](http://nodejitsu.com). Note that I highly recommend using SSL for this app as otherwise your credentials will be transmitted in the clear.
 
-    You'll need the following environment variables set:
+  You'll need the following environment variables set:
 
-    * `PIVOTHUB_BASIC_USER` - Your HTTP basic auth username for pulling issues into Pivotal Tracker
-    * `PIVOTHUB_BASIC_PASS` - HTTP basic auth password
-    * `GITHUB_TOKEN` - The OAuth token from GitHub
-    * `SECRET_TOKEN` - The web hook auth token for closing finished issues (you make this one up)
+  * `PIVOTHUB_BASIC_USER` - Your HTTP basic auth username for pulling issues into Pivotal Tracker
+  * `PIVOTHUB_BASIC_PASS` - HTTP basic auth password
+  * `GITHUB_TOKEN` - The OAuth token from GitHub
+  * `SECRET_TOKEN` - The web hook auth token for closing finished issues (you make this one up)
 
 4. Deploy it!
 
@@ -55,7 +55,7 @@ If you would like PivotHub to close Issues that are associated with Finished sto
 
 2. Fill in the `Activity Web Hook` as follows:
 
-    * **Web Hook URL:** `https://myghissues.herokuapp.com/issues/<your SECRET_TOKEN>`
-    * **API Version:** `v3`
+  * **Web Hook URL:** `https://myghissues.herokuapp.com/issues/<your SECRET_TOKEN>`
+  * **API Version:** `v3`
 
 3. Click `Save Web Hook Settings`
