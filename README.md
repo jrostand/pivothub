@@ -24,7 +24,7 @@ A simple way to integrate GitHub Issues into Pivotal Tracker
 
 ## Setting up Pivotal Tracker
 
-This section will tell you how to set up Pivotal Tracker to pull in GitHub Issues and (optionally) close Issues that are associated with Finished stories.
+This section will tell you how to set up Pivotal Tracker to pull in GitHub Issues as well as close Issues that are associated with Finished stories.
 
 ### Assumptions
 
@@ -52,7 +52,7 @@ If you would like PivotHub to close Issues that are associated with Finished sto
 
 1. In Pivotal, go to the `Configure Integrations` page for your project
 
-2. Fill in the **Activity Web Hook** as follows:
+2. Fill in the **Activity Web Hook** fields as follows:
   * **Web Hook URL:** `https://myghissues.herokuapp.com/issues/<SECRET_TOKEN>`
   * **API Version:** `v3`
 
