@@ -46,7 +46,7 @@ generateStories = (user, repo, issues) ->
     xml += """
            <external_story>
              <external_id>#{user}/#{repo}/issues/#{issue.number}</external_id>
-             <name>#{issue.title}</name>
+             <name>#{issue.title.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')}</name>
              <description>#{issue.body.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')}</description>
              <requested_by>#{issue.user.login}</requested_by>
              <created_at type=\"datetime\">#{issue.created_at}</created_at>
