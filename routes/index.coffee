@@ -34,7 +34,7 @@ exports.issueHandle = (req, res) ->
   res.send 'Unauthorized', 401 unless req.params.token is process.env.SECRET_TOKEN
   console.log 'Receiving activity POST...'
 
-  story = req.body.activity.stories[0].story
+  story = req.body.activity.stories[0].story[0]
   console.log 'STORY'
   console.log story
  
