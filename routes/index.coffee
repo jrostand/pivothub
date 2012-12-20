@@ -37,6 +37,8 @@ exports.issueHandle = (req, res) ->
   story = req.body.activity.stories[0].story[0]
   console.log 'STORY'
   console.log story
+  console.log story.notes 
+  console.log story.notes.note
  
   storyData = story.other_id[0].split '/'
   if story.current_state is 'finished' and config.closeIssuesEnabled
