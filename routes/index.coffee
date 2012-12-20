@@ -38,8 +38,8 @@ exports.issueHandle = (req, res) ->
   console.log 'STORY'
   console.log story
   console.log 'STORY STORY'
-  console.log story[1]
-  console.log story.story
+  console.log story[0]
+  console.log story[0].story
   storyData = story.other_id.split '/'
   if story.current_state is 'finished' and config.closeIssuesEnabled
     if closeIssue storyData[0], storyData[1], storyData[3]
