@@ -34,8 +34,13 @@ exports.issueHandle = (req, res) ->
   res.send 'Unauthorized', 401 unless req.params.token is process.env.SECRET_TOKEN
   console.log 'Receiving activity POST...'
   console.log req.body
+  console.log req.body.stories
+  console.log req.body.activity
+  console.log req.body.activity.stories
 
   story = req.body.stories.story
+  console.log 'STORY'
+  console.log story
   storyData = story.other_id.split '/'
   if story.current_state is 'finished' and config.closeIssuesEnabled
     if closeIssue storyData[0], storyData[1], storyData[3]
