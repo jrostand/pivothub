@@ -1,6 +1,7 @@
 xml2js = require 'xml2js'
 GithubApi = require 'github'
 util = require 'util'
+config = require('../config')
 
 parser = new xml2js.Parser()
 github = new GithubApi version: "3.0.0"
@@ -8,6 +9,9 @@ github = new GithubApi version: "3.0.0"
 github.authenticate
   type: 'oauth'
   token: process.env.GITHUB_TOKEN
+
+exports.default = (req, res) ->
+  res.send config
 
 exports.issuesList = (req, res) ->
   user = req.params.user
@@ -26,14 +30,19 @@ exports.issuesList = (req, res) ->
     xml = generateStories user, repo, result
     res.send xml
 
-exports.issueClose = (req, res) ->
+exports.issueHandle = (req, res) ->
   res.send 'Unauthorized', 401 unless req.params.token is process.env.SECRET_TOKEN
   console.log 'Receiving activity POST...'
 
   story = req.body.stories.story
-  if story.current_state is 'finished'
-    storyData = story.other_id.split '/'
+  storyData = story.other_id.split '/'
+  if story.current_state is 'finished' and config.closeIssuesEnabled
     if closeIssue storyData[0], storyData[1], storyData[3]
+      res.send 'OK'
+    else
+      res.send 'Failure', 400
+  else if story.notes and story.notes.note and config.updateCommentsEnabled
+    if addIssueComment storyData[0], storyData[1], storyData[3], story.description + ' ' + story.url
       res.send 'OK'
     else
       res.send 'Failure', 400
@@ -62,5 +71,14 @@ closeIssue = (user, repo, issueId) ->
     repo: repo
     number: issueId
     state: 'closed'
+  , (err, result) ->
+    console.log err if err?
+
+addIssueComment = (user, repo, issueId, comment) ->
+  github.issues.createComment
+    user: user
+    repo: repo
+    number: issueId
+    body: comment
   , (err, result) ->
     console.log err if err?
