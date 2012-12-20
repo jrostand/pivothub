@@ -42,7 +42,7 @@ exports.issueHandle = (req, res) ->
   console.log activity
  
   storyData = story.other_id[0].split '/'
-  if story.current_state is 'finished' and config.closeIssuesEnabled
+  if story.current_state[0] is 'finished' and config.closeIssuesEnabled
     if closeIssue storyData[0], storyData[1], storyData[3]
       res.send 'OK'
     else
