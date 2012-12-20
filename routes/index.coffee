@@ -38,7 +38,7 @@ exports.issueHandle = (req, res) ->
   console.log 'STORY'
   console.log story
  
-  storyData = story.other_id.split '/'
+  storyData = story.other_id[0].split '/'
   if story.current_state is 'finished' and config.closeIssuesEnabled
     if closeIssue storyData[0], storyData[1], storyData[3]
       res.send 'OK'
