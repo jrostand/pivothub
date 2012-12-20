@@ -38,7 +38,6 @@ exports.issueHandle = (req, res) ->
   story = activity.stories[0].story[0]
   console.log 'STORY'
   console.log story
-  console.log story.notes[0].note
   console.log 'ACTIVITY'
   console.log activity
  
@@ -49,7 +48,7 @@ exports.issueHandle = (req, res) ->
     else
       res.send 'Failure', 400
   else if story.notes and story.notes[0].note and config.updateCommentsEnabled
-    if addIssueComment storyData[0], storyData[1], storyData[3], activity.description + ' ' + story.url[0]
+    if addIssueComment storyData[0], storyData[1], storyData[3], activity.description + '\nhttps://www.pivotaltracker.com/story/show/' + story.id[0]._
       res.send 'OK'
     else
       res.send 'Failure', 400
