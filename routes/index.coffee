@@ -49,7 +49,7 @@ exports.issueHandle = (req, res) ->
     else
       res.send 'Failure', 400
   else if story.notes and story.notes[0].note and config.updateCommentsEnabled
-    if addIssueComment storyData[0], storyData[1], storyData[3], story.description + ' ' + story.url
+    if addIssueComment storyData[0], storyData[1], storyData[3], activity.description + ' ' + story.url[0]
       res.send 'OK'
     else
       res.send 'Failure', 400
