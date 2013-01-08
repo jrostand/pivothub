@@ -2,5 +2,5 @@
 # Configuration flags
 #
 
-exports.closeIssuesEnabled = false
+exports.closeIssuesEnabled = true
 exports.updateCommentsEnabled = true
