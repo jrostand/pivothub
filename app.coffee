@@ -21,8 +21,9 @@ app.configure ->
 app.configure 'development', ->
   app.use express.errorHandler()
 
+app.get '/', routes.default
 app.get '/issues/:user/:repo', auth, routes.issuesList
-app.post '/issues/:token', routes.issueClose
+app.post '/issues/:token', routes.issueHandle
 
 http.createServer(app).listen app.get('port'), ->
   console.log "Express server started on port #{app.get 'port'}"
