@@ -1,0 +1,22 @@
+// Public: Configuration flags.
+//
+// basicUsername  - The String HTTP basic username for pulling issues into Pivotal Tracker
+// basicPassword  - The String password for the basicUsername
+// closeIssues    - The Boolean flag to indicate whether or not to close issues on Pivotal activity.
+// closeOn        - The String to indicate the Pivotal Tracker status on which to close issues.
+//                  Any of: started/finished/delivered/accepted. Note that certain story types
+//                  will not use delivered/accepted. Default "finished". Required if closeIssues is on.
+// githubToken    - The String OAuth token from GitHub
+// secretToken    - The String web hook token used for closing issues
+// updateComments - The Boolean flag to indicate whether or not to push Pivotal Tracker comments to
+//                  the GitHub issue.
+
+{
+  "basicUsername": "",
+  "basicPassword": "",
+  "closeIssues": true,
+  "closeOn": "",
+  "githubToken": "",
+  "secretToken": "",
+  "updateComments": true
+}
