@@ -1,14 +1,14 @@
 xml2js = require 'xml2js'
 GithubApi = require 'github'
 util = require 'util'
-config = require('../config')
+config = require '../config'
 
 parser = new xml2js.Parser()
 github = new GithubApi version: "3.0.0"
 
 github.authenticate
   type: 'oauth'
-  token: process.env.GITHUB_TOKEN
+  token: config.githubToken
 
 exports.default = (req, res) ->
   res.send config
@@ -31,25 +31,30 @@ exports.issuesList = (req, res) ->
     res.send xml
 
 exports.issueHandle = (req, res) ->
-  res.send 'Unauthorized', 401 unless req.params.token is process.env.SECRET_TOKEN
+  res.send 'Unauthorized', 401 unless req.params.token is config.secretToken
   console.log 'Receiving activity POST...'
 
-  activity = req.body.activity
-  story = activity.stories[0].story[0]
+  activity  = req.body.activity
+  story     = activity.stories[0].story[0]
   storyData = story.other_id[0].split '/'
+
+  user    = storyData[0]
+  repo    = storyData[1]
+  issueId = storyData[3]
+  # storyData[2] is not used - it's always "issues" for the record
   
-  if story.current_state and story.current_state[0] is 'finished' and config.closeIssuesEnabled
-    if closeIssue storyData[0], storyData[1], storyData[3]
+  if config.closeIssues? and story.current_state and story.current_state[0] is config.closeOn
+    if closeIssue user, repo, issue
       res.send 'OK'
-    else
-      res.send 'Failure', 400
-  else if story.notes and story.notes[0].note and config.updateCommentsEnabled
-    if addIssueComment storyData[0], storyData[1], storyData[3], activity.description + '\nhttps://www.pivotaltracker.com/story/show/' + story.id[0]._
+    else res.send 'Failure', 400
+  else if config.updateComments? and story.notes and story.notes[0].note
+    if addIssueComment(user,
+                       repo,
+                       issue,
+                       "#{activity.description}\nhttps://www.pivotaltracker.com/story/show/#{story.id[0]._}")
       res.send 'OK'
-    else
-      res.send 'Failure', 400
-  else
-    res.end 'OK'
+    else res.send 'Failure', 400
+  else res.end 'OK'
 
 generateStories = (user, repo, issues) ->
   xml = '<external_stories type="array">'
@@ -57,8 +62,8 @@ generateStories = (user, repo, issues) ->
     xml += """
            <external_story>
              <external_id>#{user}/#{repo}/issues/#{issue.number}</external_id>
-             <name>#{issue.title.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')}</name>
-             <description>#{issue.body.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')}</description>
+             <name>#{stringTidy(issue.title)}</name>
+             <description>#{stringTidy(issue.body)}</description>
              <requested_by>#{issue.user.login}</requested_by>
              <created_at type=\"datetime\">#{issue.created_at}</created_at>
              <story_type>feature</story_type>
@@ -67,7 +72,7 @@ generateStories = (user, repo, issues) ->
   xml += '</external_stories>'
   return xml
 
-closeIssue = (user, repo, issueId) ->
+closeIssue = (user, repo, issueId, success, failure) ->
   github.issues.edit
     user: user
     repo: repo
@@ -84,3 +89,6 @@ addIssueComment = (user, repo, issueId, comment) ->
     body: comment
   , (err, result) ->
     console.log err if err?
+
+stringTidy = (string) ->
+  string.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')
