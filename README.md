@@ -12,13 +12,12 @@ A simple way to integrate GitHub Issues into Pivotal Tracker
 
 2. Get an OAuth key from GitHub. Instructions are available [here](https://help.github.com/articles/creating-an-oauth-token-for-command-line-use)
 
-3. Set up your deployment environment. I use [Heroku](http://www.heroku.com) personally (because you get SSL for free), but it should work equally well with [Nodejitsu](http://nodejitsu.com). Note that I highly recommend using SSL for this app as otherwise your credentials will be transmitted in the clear.
+3. Set up your deployment environment. I use [Heroku](http://www.heroku.com) personally (because you get SSL for free), but it should work equally well with other providers. Note that using SSL is highly recommended as otherwise your credentials will be transmitted in the clear.
 
-  You'll need the following environment variables set:
-  * `PIVOTHUB_BASIC_USER` - Your HTTP basic auth username for pulling issues into Pivotal Tracker
-  * `PIVOTHUB_BASIC_PASS` - HTTP basic auth password
-  * `GITHUB_TOKEN` - The OAuth token from GitHub
-  * `SECRET_TOKEN` - The web hook auth token for closing finished issues (you make this one up)
+  ```shell
+  cp config.json.example config.json
+  ```
+  You'll need to edit `config.json` to suit your needs. Explanations of the flags are in the file.
 
 4. Deploy it!
 
@@ -39,8 +38,8 @@ This section will tell you how to set up Pivotal Tracker to pull in GitHub Issue
 
 3. Fill in the form with this information:
     * **Name:** Whatever you'd like to call the Issues panel (e.g., GitHub Issues)
-    * **Basic Auth Username:** The value of `PIVOTHUB_BASIC_USER`
-    * **Basic Auth Password:** The value of `PIVOTHUB_BASIC_PASS`
+    * **Basic Auth Username:** The value of `basicUsername` in the config
+    * **Basic Auth Password:** The value of `basicPassword` in the config
     * **Base URL:** `https://github.com/`
     * **Import API URL:** `https://myghissues.herokuapp.com/issues/myaccount/repo`
 
@@ -53,7 +52,16 @@ If you would like PivotHub to close Issues that are associated with Finished sto
 1. In Pivotal, go to the `Configure Integrations` page for your project
 
 2. Fill in the **Activity Web Hook** fields as follows:
-  * **Web Hook URL:** `https://myghissues.herokuapp.com/issues/<SECRET_TOKEN>`
+  * **Web Hook URL:** `https://myghissues.herokuapp.com/issues/<secretToken>`
   * **API Version:** `v3`
 
 3. Click **Save Web Hook Settings**
+
+## License
+
+MIT license. See [the license file](MIT-LICENSE.md).
+
+## Authors
+
+* Original author: [Julien Rostand](https://github.com/jrostand)
+* Major contributor: [Tom Lianza](https://github.com/tlianza)

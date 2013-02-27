@@ -7,7 +7,7 @@
 //                  Any of: started/finished/delivered/accepted. Note that certain story types
 //                  will not use delivered/accepted. Default "finished". Required if closeIssues is on.
 // githubToken    - The String OAuth token from GitHub
-// secretToken    - The String web hook token used for closing issues
+// secretToken    - The String web hook token used for closing issues. You make this up.
 // updateComments - The Boolean flag to indicate whether or not to push Pivotal Tracker comments to
 //                  the GitHub issue.
 
