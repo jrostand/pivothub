@@ -2,6 +2,8 @@
 
 A simple way to integrate GitHub Issues into Pivotal Tracker
 
+## NOTICE: I haven't used Tracker in over a year, so this project is dead. I'm not actively looking for a new maintainer, but if you want to take over, you're more than welcome.
+
 ## Installation
 
 1. Clone the repo
